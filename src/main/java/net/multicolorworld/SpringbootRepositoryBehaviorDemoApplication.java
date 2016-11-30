@@ -32,10 +32,14 @@ public class SpringbootRepositoryBehaviorDemoApplication {
     @RequestMapping("/id")
     @ResponseBody
     public List<Hoge> getHogeListOnlyId() {
-        List<Hoge> hoges = hogeRepository.findAllOnlyId(); //OK <-???
-        for (Hoge hoge : hoges) { //NG(hoges is Integer List)
+        List<Hoge> hoges = hogeRepository.findAllOnlyId();
+        //これは通る
+        //ただしhogesはこの時点ですでにIntegerのListになっているので型がおかしい気がする
+
+        for (Hoge hoge : hoges) { //ここでInteger->Hogeのキャストが発生して死ぬ
             System.out.println(hoge);
         }
+
         return hoges;
     }
 }
